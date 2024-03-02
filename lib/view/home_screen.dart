@@ -130,6 +130,7 @@ class HomeScreen extends GetView<HomeController> {
                       label: 'DOB',
                       readOnly: true,
                       onTap: () {
+                        controller.pickDate(context, controller.dateOfBirthController);
                       },
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -329,10 +330,13 @@ class HomeScreen extends GetView<HomeController> {
                             children: [
                               Flexible(
                                 child: CustomInputField(
+                                  readOnly: true,
                                   label: "Passing Year",
                                   fieldInputType: TextInputType.number,
-                                  fieldController: controller
-                                      .passingYearControllerLists[index],
+                                  fieldController: controller.passingYearControllerLists[index],
+                                  onTap: () {
+                                    controller.pickDate(context, controller.passingYearControllerLists[index]);
+                                  },
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
                                       return 'Please enter Passing Year';
@@ -458,9 +462,11 @@ class HomeScreen extends GetView<HomeController> {
                               Flexible(
                                 child: CustomInputField(
                                   label: "Joining Date",
-                                  fieldController: controller
-                                      .joiningDateControllerLists[index],
-                                  fieldInputType: TextInputType.number,
+                                  readOnly: true,
+                                  fieldController: controller.joiningDateControllerLists[index],
+                                  onTap: () {
+                                    controller.pickDate(context, controller.joiningDateControllerLists[index]);
+                                  },
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
                                       return 'Please enter Joining Date';
@@ -473,9 +479,11 @@ class HomeScreen extends GetView<HomeController> {
                               Flexible(
                                 child: CustomInputField(
                                   label: "Last Date",
-                                  fieldController: controller
-                                      .lastDateControllerLists[index],
-                                  fieldInputType: TextInputType.number,
+                                  readOnly: true,
+                                  fieldController: controller.lastDateControllerLists[index],
+                                  onTap: () {
+                                    controller.pickDate(context, controller.lastDateControllerLists[index]);
+                                  },
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
                                       return 'Please enter Last Date';

@@ -83,4 +83,16 @@ class HomeController extends GetxController {
     update();
   }
 
+  Future<void> pickDate(BuildContext context, TextEditingController controller) async {
+    final DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1900),
+      lastDate: DateTime(2100),
+    );
+    if (pickedDate != null) {
+      controller.text = pickedDate.toString().split(' ')[0];
+    }
+  }
+
 }
