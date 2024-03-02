@@ -83,16 +83,44 @@ class HomeController extends GetxController {
     update();
   }
 
-  Future<void> pickDate(BuildContext context, TextEditingController controller) async {
+  Future<void> pickDate(BuildContext context) async {
     final DateTime? pickedDate = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime(1900),
       lastDate: DateTime(2100),
     );
-    if (pickedDate != null) {
-      controller.text = pickedDate.toString().split(' ')[0];
+    if (pickedDate != null && pickedDate != _selectedDate) {
+      _selectedDate = pickedDate;
+      dateOfBirthController.text =_selectedDate.toString().split(' ')[0];
     }
+    update();
+  }
+  void clearAllControllers() {
+    firstNameController.clear();
+    lastNameController.clear();
+    jobTitleController.clear();
+    experienceController.clear();
+    aboutMeController.clear();
+    emailAddressController.clear();
+    mobileNoController.clear();
+    dateOfBirthController.clear();
+    genderController.clear();
+    nationalityController.clear();
+    marialStatusController.clear();
+    schoolNameControllerLists.forEach((controller) => controller.clear());
+    courseNameControllerLists.forEach((controller) => controller.clear());
+    passingYearControllerLists.forEach((controller) => controller.clear());
+    PercentageControllerLists.forEach((controller) => controller.clear());
+    companyNameControllerLists.forEach((controller) => controller.clear());
+    yourPostControllerLists.forEach((controller) => controller.clear());
+    joiningDateControllerLists.forEach((controller) => controller.clear());
+    lastDateControllerLists.forEach((controller) => controller.clear());
+    projectNameControllerLists.forEach((controller) => controller.clear());
+    liveURLControllerLists.forEach((controller) => controller.clear());
+    projectDesControllerLists.forEach((controller) => controller.clear());
+    selectedGender = null;
+    update();
   }
 
 }

@@ -3,6 +3,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
 import '../controller/home_controller.dart';
 import '../custom_widgets/custom_TextFromField.dart';
+import '../routes/route_names.dart';
 
 class HomeScreen extends GetView<HomeController> {
   const HomeScreen({Key? key}) : super(key: key);
@@ -21,6 +22,7 @@ class HomeScreen extends GetView<HomeController> {
               padding: const EdgeInsets.only(right: 20),
               child: InkWell(
                 onTap: (){
+                  controller.clearAllControllers();
                 },
                 child: Text("Clear",style: TextStyle(
                     fontSize: 15,
@@ -130,7 +132,7 @@ class HomeScreen extends GetView<HomeController> {
                       label: 'DOB',
                       readOnly: true,
                       onTap: () {
-                        controller.pickDate(context, controller.dateOfBirthController);
+                        controller.pickDate(context);
                       },
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -330,13 +332,10 @@ class HomeScreen extends GetView<HomeController> {
                             children: [
                               Flexible(
                                 child: CustomInputField(
-                                  readOnly: true,
                                   label: "Passing Year",
                                   fieldInputType: TextInputType.number,
-                                  fieldController: controller.passingYearControllerLists[index],
-                                  onTap: () {
-                                    controller.pickDate(context, controller.passingYearControllerLists[index]);
-                                  },
+                                  fieldController: controller
+                                      .passingYearControllerLists[index],
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
                                       return 'Please enter Passing Year';
@@ -462,11 +461,9 @@ class HomeScreen extends GetView<HomeController> {
                               Flexible(
                                 child: CustomInputField(
                                   label: "Joining Date",
-                                  readOnly: true,
-                                  fieldController: controller.joiningDateControllerLists[index],
-                                  onTap: () {
-                                    controller.pickDate(context, controller.joiningDateControllerLists[index]);
-                                  },
+                                  fieldController: controller
+                                      .joiningDateControllerLists[index],
+                                  fieldInputType: TextInputType.number,
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
                                       return 'Please enter Joining Date';
@@ -479,11 +476,9 @@ class HomeScreen extends GetView<HomeController> {
                               Flexible(
                                 child: CustomInputField(
                                   label: "Last Date",
-                                  readOnly: true,
-                                  fieldController: controller.lastDateControllerLists[index],
-                                  onTap: () {
-                                    controller.pickDate(context, controller.lastDateControllerLists[index]);
-                                  },
+                                  fieldController: controller
+                                      .lastDateControllerLists[index],
+                                  fieldInputType: TextInputType.number,
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
                                       return 'Please enter Last Date';
@@ -615,6 +610,7 @@ class HomeScreen extends GetView<HomeController> {
                   width: MediaQuery.of(context).size.width * 0.5,
                   child: ElevatedButton(
                     onPressed: () {
+                      Get.toNamed(RouteNames.Resume);
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue.shade200,

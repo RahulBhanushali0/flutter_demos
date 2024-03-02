@@ -1,10 +1,11 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_resume_demo/routes/route_generator.dart';
 import 'package:flutter_resume_demo/view/home_screen.dart';
 import 'package:get/get.dart';
 
-import 'controller/screen_bindings.dart';
+import 'routes/screen_bindings.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.light,
       debugShowCheckedModeBanner: false,
       initialBinding: ScreenBindings(),
+      getPages: RouteGenerator.generate(),
       home: const HomeScreen(),
     );
   }
