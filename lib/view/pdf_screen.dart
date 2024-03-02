@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/pdf.dart';
+import 'package:printing/printing.dart';
 
 import '../controller/home_controller.dart';
 
@@ -20,7 +21,617 @@ class _ResumeState extends State<Resume> {
 
   @override
   void initState() {
+    pdf.addPage(
+      pw.Page(
+        pageFormat: PdfPageFormat.a4,
+        clip: true,
+        build: (context) {
+          return pw.Container(
+            height: 850,
+            width: double.infinity,
+            color: PdfColors.white, // UI Container Color
+            child: pw.Column(
+                crossAxisAlignment: pw.CrossAxisAlignment.start,
+                children: [
+                  pw.Padding(
+                    padding: const pw.EdgeInsets.only(bottom: 10),
+                    child: pw.Text(
+                      "Personal Information",
+                      style: pw.TextStyle(fontSize: 24, fontWeight: pw.FontWeight.bold, color: PdfColors.blue),
+                    ),
+                  ),
+                  pw.Padding(
+                    padding: const pw.EdgeInsets.symmetric(vertical: 5),
+                    child: pw.Row(
+                      crossAxisAlignment: pw.CrossAxisAlignment.start,
+                      children: [
+                        pw.Text('Name: ',
+                          style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
+                        ),
+                        pw.Expanded(
+                          child: pw.Text('${controller.firstNameController.text} ${controller.lastNameController.text}',
+                            softWrap: true,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  pw.Padding(
+                    padding: const pw.EdgeInsets.symmetric(vertical: 5),
+                    child: pw.Row(
+                      crossAxisAlignment: pw.CrossAxisAlignment.start,
+                      children: [
+                        pw.Text('Email: ',
+                          style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
+                        ),
+                        pw.Expanded(
+                          child: pw.Text(controller.emailAddressController.text,
+                            softWrap: true,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  pw.Padding(
+                    padding: const pw.EdgeInsets.symmetric(vertical: 5),
+                    child: pw.Row(
+                      crossAxisAlignment: pw.CrossAxisAlignment.start,
+                      children: [
+                        pw.Text('Mobile: ',
+                          style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
+                        ),
+                        pw.Expanded(
+                          child: pw.Text(controller.mobileNoController.text,
+                            softWrap: true,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  pw.Padding(
+                    padding: const pw.EdgeInsets.symmetric(vertical: 5),
+                    child: pw.Row(
+                      crossAxisAlignment: pw.CrossAxisAlignment.start,
+                      children: [
+                        pw.Text('Date of Birth: ',
+                          style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
+                        ),
+                        pw.Expanded(
+                          child: pw.Text(controller.dateOfBirthController.text,
+                            softWrap: true,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  pw.Padding(
+                    padding: const pw.EdgeInsets.symmetric(vertical: 5),
+                    child: pw.Row(
+                      crossAxisAlignment: pw.CrossAxisAlignment.start,
+                      children: [
+                        pw.Text('Gender: ',
+                          style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
+                        ),
+                        pw.Expanded(
+                          child: pw.Text(controller.genderController.text,
+                            softWrap: true,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  pw.Padding(
+                    padding: const pw.EdgeInsets.symmetric(vertical: 5),
+                    child: pw.Row(
+                      crossAxisAlignment: pw.CrossAxisAlignment.start,
+                      children: [
+                        pw.Text('Nationality: ',
+                          style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
+                        ),
+                        pw.Expanded(
+                          child: pw.Text(controller.nationalityController.text,
+                            softWrap: true,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  pw.Padding(
+                    padding: const pw.EdgeInsets.symmetric(vertical: 5),
+                    child: pw.Row(
+                      crossAxisAlignment: pw.CrossAxisAlignment.start,
+                      children: [
+                        pw.Text('Marital Status: ',
+                          style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
+                        ),
+                        pw.Expanded(
+                          child: pw.Text(controller.marialStatusController.text,
+                            softWrap: true,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  pw.SizedBox(height: 20),
+                  pw.Padding(
+                    padding: const pw.EdgeInsets.only(bottom: 10),
+                    child: pw.Text(
+                      "Job Details",
+                      style: pw.TextStyle(fontSize: 24, fontWeight: pw.FontWeight.bold, color: PdfColors.blue),
+                    ),
+                  ),
+                  pw.Padding(
+                    padding: const pw.EdgeInsets.symmetric(vertical: 5),
+                    child: pw.Row(
+                      crossAxisAlignment: pw.CrossAxisAlignment.start,
+                      children: [
+                        pw.Text('Job Title: ',
+                          style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
+                        ),
+                        pw.Expanded(
+                          child: pw.Text(controller.jobTitleController.text,
+                            softWrap: true,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  pw.Padding(
+                    padding: const pw.EdgeInsets.symmetric(vertical: 5),
+                    child: pw.Row(
+                      crossAxisAlignment: pw.CrossAxisAlignment.start,
+                      children: [
+                        pw.Text('Experience: ',
+                          style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
+                        ),
+                        pw.Expanded(
+                          child: pw.Text(controller.experienceController.text,
+                            softWrap: true,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  pw.Padding(
+                    padding: const pw.EdgeInsets.symmetric(vertical: 5),
+                    child: pw.Row(
+                      crossAxisAlignment: pw.CrossAxisAlignment.start,
+                      children: [
+                        pw.Text('About Me: ',
+                          style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
+                        ),
+                        pw.Expanded(
+                          child: pw.Text(controller.aboutMeController.text,
+                            softWrap: true,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
 
+
+                  pw.SizedBox(height: 20),
+                  pw.Padding(
+                    padding: pw.EdgeInsets.only(bottom: 10),
+                    child: pw.Text(
+                      "Education",
+                      style: pw.TextStyle(fontSize: 24, fontWeight: pw.FontWeight.bold, color: PdfColors.blue),
+                    ),
+                  ),
+                  pw.ListView.separated(itemBuilder: ( context, index) {
+                    return pw.Column(
+                        children: [
+                          pw.Padding(
+                            padding: pw.EdgeInsets.symmetric(vertical: 5),
+                            child: pw.Row(
+                              crossAxisAlignment: pw.CrossAxisAlignment.start,
+                              children: [
+                                pw.Text('School/Collage: ',
+                                  style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
+                                ),
+                                pw.Expanded(
+                                  child: pw.Text('${controller.schoolNameControllerLists[index].text.toString()}',
+                                    softWrap: true,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          pw.Padding(
+                            padding: pw.EdgeInsets.symmetric(vertical: 5),
+                            child: pw.Row(
+                              crossAxisAlignment: pw.CrossAxisAlignment.start,
+                              children: [
+                                pw.Text('Course: ',
+                                  style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
+                                ),
+                                pw.Expanded(
+                                  child: pw.Text('${controller.courseNameControllerLists[index].text.toString()}',
+                                    softWrap: true,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          pw.Padding(
+                            padding: pw.EdgeInsets.symmetric(vertical: 5),
+                            child: pw.Row(
+                              crossAxisAlignment: pw.CrossAxisAlignment.start,
+                              children: [
+                                pw.Text('Passing Year: ',
+                                  style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
+                                ),
+                                pw.Expanded(
+                                  child: pw.Text('${controller.passingYearControllerLists[index].text.toString()}',
+                                    softWrap: true,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          pw.Padding(
+                            padding: pw.EdgeInsets.symmetric(vertical: 5),
+                            child: pw.Row(
+                              crossAxisAlignment: pw.CrossAxisAlignment.start,
+                              children: [
+                                pw.Text('Percentage: ',
+                                  style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
+                                ),
+                                pw.Expanded(
+                                  child: pw.Text('${controller.passingYearControllerLists[index].text.toString()}',
+                                    softWrap: true,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+
+                        ]
+
+                    );
+                  }, itemCount: controller.schoolNameControllerLists.length, separatorBuilder: (context, int index) {
+                    return pw.SizedBox(height: 10);
+                  }),
+
+
+
+                  // pw.SizedBox(height: 20),
+                  // pw.Padding(
+                  //   padding: pw.EdgeInsets.only(bottom: 10),
+                  //   child: pw.Text(
+                  //     "Work History",
+                  //     style: pw.TextStyle(fontSize: 24, fontWeight: pw.FontWeight.bold, color: PdfColors.blue),
+                  //   ),
+                  // ),
+                  // pw.ListView.separated(itemBuilder: ( context, index) {
+                  //   return pw.Column(
+                  //       children: [
+                  //         pw.Padding(
+                  //           padding: pw.EdgeInsets.symmetric(vertical: 5),
+                  //           child: pw.Row(
+                  //             crossAxisAlignment: pw.CrossAxisAlignment.start,
+                  //             children: [
+                  //               pw.Text('Company: ',
+                  //                 style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
+                  //               ),
+                  //               pw.Expanded(
+                  //                 child: pw.Text('${controller.companyNameControllerLists[index].text.toString()}',
+                  //                   softWrap: true,
+                  //                 ),
+                  //               ),
+                  //             ],
+                  //           ),
+                  //         ),
+                  //         pw.Padding(
+                  //           padding: pw.EdgeInsets.symmetric(vertical: 5),
+                  //           child: pw.Row(
+                  //             crossAxisAlignment: pw.CrossAxisAlignment.start,
+                  //             children: [
+                  //               pw.Text('Post: ',
+                  //                 style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
+                  //               ),
+                  //               pw.Expanded(
+                  //                 child: pw.Text('${controller.yourPostControllerLists[index].text.toString()}',
+                  //                   softWrap: true,
+                  //                 ),
+                  //               ),
+                  //             ],
+                  //           ),
+                  //         ),
+                  //         pw.Padding(
+                  //           padding: pw.EdgeInsets.symmetric(vertical: 5),
+                  //           child: pw.Row(
+                  //             crossAxisAlignment: pw.CrossAxisAlignment.start,
+                  //             children: [
+                  //               pw.Text('Joining Date: ',
+                  //                 style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
+                  //               ),
+                  //               pw.Expanded(
+                  //                 child: pw.Text('${controller.joiningDateControllerLists[index].text.toString()}',
+                  //                   softWrap: true,
+                  //                 ),
+                  //               ),
+                  //             ],
+                  //           ),
+                  //         ),
+                  //         pw.Padding(
+                  //           padding: pw.EdgeInsets.symmetric(vertical: 5),
+                  //           child: pw.Row(
+                  //             crossAxisAlignment: pw.CrossAxisAlignment.start,
+                  //             children: [
+                  //               pw.Text('Last Date: ',
+                  //                 style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
+                  //               ),
+                  //               pw.Expanded(
+                  //                 child: pw.Text('${controller.lastDateControllerLists[index].text.toString()}',
+                  //                   softWrap: true,
+                  //                 ),
+                  //               ),
+                  //             ],
+                  //           ),
+                  //         ),
+                  //
+                  //       ]
+                  //
+                  //   );
+                  // }, itemCount: controller.companyNameControllerLists.length, separatorBuilder: (context, int index) {
+                  //   return pw.SizedBox(height: 10);
+                  // }),
+                  //
+                  //
+                  //
+                  //
+                  // pw.SizedBox(height: 20),
+                  // pw.Padding(
+                  //   padding: pw.EdgeInsets.only(bottom: 10),
+                  //   child: pw.Text(
+                  //     "Projects",
+                  //     style: pw.TextStyle(fontSize: 24, fontWeight: pw.FontWeight.bold, color: PdfColors.blue),
+                  //   ),
+                  // ),
+                  // pw.ListView.separated(itemBuilder: ( context, index) {
+                  //   return pw.Column(
+                  //       children: [
+                  //         pw.Padding(
+                  //           padding: pw.EdgeInsets.symmetric(vertical: 5),
+                  //           child: pw.Row(
+                  //             crossAxisAlignment: pw.CrossAxisAlignment.start,
+                  //             children: [
+                  //               pw.Text('Project Name: ',
+                  //                 style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
+                  //               ),
+                  //               pw.Expanded(
+                  //                 child: pw.Text('${controller.projectNameControllerLists[index].text.toString()}',
+                  //                   softWrap: true,
+                  //                 ),
+                  //               ),
+                  //             ],
+                  //           ),
+                  //         ),
+                  //         pw.Padding(
+                  //           padding: pw.EdgeInsets.symmetric(vertical: 5),
+                  //           child: pw.Row(
+                  //             crossAxisAlignment: pw.CrossAxisAlignment.start,
+                  //             children: [
+                  //               pw.Text('Live URL: ',
+                  //                 style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
+                  //               ),
+                  //               pw.Expanded(
+                  //                 child: pw.Text('${controller.liveURLControllerLists[index].text.toString()}',
+                  //                   softWrap: true,
+                  //                 ),
+                  //               ),
+                  //             ],
+                  //           ),
+                  //         ),
+                  //         pw.Padding(
+                  //           padding: pw.EdgeInsets.symmetric(vertical: 5),
+                  //           child: pw.Row(
+                  //             crossAxisAlignment: pw.CrossAxisAlignment.start,
+                  //             children: [
+                  //               pw.Text('Description: ',
+                  //                 style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
+                  //               ),
+                  //               pw.Expanded(
+                  //                 child: pw.Text('${controller.projectDesControllerLists[index].text.toString()}',
+                  //                   softWrap: true,
+                  //                 ),
+                  //               ),
+                  //             ],
+                  //           ),
+                  //         ),
+                  //
+                  //       ]
+                  //
+                  //   );
+                  // }, itemCount: controller.projectNameControllerLists.length, separatorBuilder: (context, int index) {
+                  //   return pw.SizedBox(height: 10);
+                  // }),
+
+
+
+
+                ]
+            ),
+          );
+        },
+      ),
+    );
+    pdf.addPage(
+      pw.Page(
+        pageFormat: PdfPageFormat.a4,
+        clip: true,
+        build: (context) {
+          return pw.Container(
+            height: 850,
+            width: double.infinity,
+            color: PdfColors.white, // UI Container Color
+            child: pw.Column(
+                crossAxisAlignment: pw.CrossAxisAlignment.start,
+                children: [
+
+                  pw.SizedBox(height: 20),
+                  pw.Padding(
+                    padding: pw.EdgeInsets.only(bottom: 10),
+                    child: pw.Text(
+                      "Work History",
+                      style: pw.TextStyle(fontSize: 24, fontWeight: pw.FontWeight.bold, color: PdfColors.blue),
+                    ),
+                  ),
+                  pw.ListView.separated(itemBuilder: ( context, index) {
+                    return pw.Column(
+                        children: [
+                          pw.Padding(
+                            padding: pw.EdgeInsets.symmetric(vertical: 5),
+                            child: pw.Row(
+                              crossAxisAlignment: pw.CrossAxisAlignment.start,
+                              children: [
+                                pw.Text('Company: ',
+                                  style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
+                                ),
+                                pw.Expanded(
+                                  child: pw.Text('${controller.companyNameControllerLists[index].text.toString()}',
+                                    softWrap: true,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          pw.Padding(
+                            padding: pw.EdgeInsets.symmetric(vertical: 5),
+                            child: pw.Row(
+                              crossAxisAlignment: pw.CrossAxisAlignment.start,
+                              children: [
+                                pw.Text('Post: ',
+                                  style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
+                                ),
+                                pw.Expanded(
+                                  child: pw.Text('${controller.yourPostControllerLists[index].text.toString()}',
+                                    softWrap: true,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          pw.Padding(
+                            padding: pw.EdgeInsets.symmetric(vertical: 5),
+                            child: pw.Row(
+                              crossAxisAlignment: pw.CrossAxisAlignment.start,
+                              children: [
+                                pw.Text('Joining Date: ',
+                                  style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
+                                ),
+                                pw.Expanded(
+                                  child: pw.Text('${controller.joiningDateControllerLists[index].text.toString()}',
+                                    softWrap: true,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          pw.Padding(
+                            padding: pw.EdgeInsets.symmetric(vertical: 5),
+                            child: pw.Row(
+                              crossAxisAlignment: pw.CrossAxisAlignment.start,
+                              children: [
+                                pw.Text('Last Date: ',
+                                  style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
+                                ),
+                                pw.Expanded(
+                                  child: pw.Text('${controller.lastDateControllerLists[index].text.toString()}',
+                                    softWrap: true,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+
+                        ]
+
+                    );
+                  }, itemCount: controller.companyNameControllerLists.length, separatorBuilder: (context, int index) {
+                    return pw.SizedBox(height: 10);
+                  }),
+
+
+
+
+                  pw.SizedBox(height: 20),
+                  pw.Padding(
+                    padding: pw.EdgeInsets.only(bottom: 10),
+                    child: pw.Text(
+                      "Projects",
+                      style: pw.TextStyle(fontSize: 24, fontWeight: pw.FontWeight.bold, color: PdfColors.blue),
+                    ),
+                  ),
+                  pw.ListView.separated(itemBuilder: ( context, index) {
+                    return pw.Column(
+                        children: [
+                          pw.Padding(
+                            padding: pw.EdgeInsets.symmetric(vertical: 5),
+                            child: pw.Row(
+                              crossAxisAlignment: pw.CrossAxisAlignment.start,
+                              children: [
+                                pw.Text('Project Name: ',
+                                  style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
+                                ),
+                                pw.Expanded(
+                                  child: pw.Text('${controller.projectNameControllerLists[index].text.toString()}',
+                                    softWrap: true,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          pw.Padding(
+                            padding: pw.EdgeInsets.symmetric(vertical: 5),
+                            child: pw.Row(
+                              crossAxisAlignment: pw.CrossAxisAlignment.start,
+                              children: [
+                                pw.Text('Live URL: ',
+                                  style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
+                                ),
+                                pw.Expanded(
+                                  child: pw.Text('${controller.liveURLControllerLists[index].text.toString()}',
+                                    softWrap: true,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          pw.Padding(
+                            padding: pw.EdgeInsets.symmetric(vertical: 5),
+                            child: pw.Row(
+                              crossAxisAlignment: pw.CrossAxisAlignment.start,
+                              children: [
+                                pw.Text('Description: ',
+                                  style: pw.TextStyle(fontWeight: pw.FontWeight.bold),
+                                ),
+                                pw.Expanded(
+                                  child: pw.Text('${controller.projectDesControllerLists[index].text.toString()}',
+                                    softWrap: true,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+
+                        ]
+
+                    );
+                  }, itemCount: controller.projectNameControllerLists.length, separatorBuilder: (context, int index) {
+                    return pw.SizedBox(height: 10);
+                  }),
+
+
+
+
+                ]
+            ),
+          );
+        },
+      ),
+    );
     super.initState();
   }
 
@@ -34,13 +645,31 @@ class _ResumeState extends State<Resume> {
           FloatingActionButton(
             heroTag: "1",
             onPressed: () async{
+
+              Directory? res = await getExternalStorageDirectory();
+
+              String path = res!.path;
+
+              File file = File('$path/resume.pdf');
+
+              await file.writeAsBytes(await pdf.save()).then((value) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    backgroundColor: Colors.green,
+                    behavior: SnackBarBehavior.floating,
+                    content: Text("File Path ${file.path.toString()}"),
+                  ),
+                );
+              });
             },
             child: const Icon(Icons.download),
           ),
           FloatingActionButton(
             heroTag: "2",
             onPressed: () async {
-
+              Printing.layoutPdf(onLayout: (format) {
+                return pdf.save();
+              });
             },
             child: const Icon(Icons.print),
           ),

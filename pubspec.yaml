@@ -42,6 +42,7 @@ dependencies:
   share: ^2.0.4
   get: ^4.6.5
   bottom_picker: ^2.4.0
+  printing: ^5.11.0
 
 dev_dependencies:
   flutter_test:
