@@ -44,13 +44,11 @@ class HomeController extends GetxController {
     PercentageControllerLists.removeAt(i);
     update();
   }
-
   ///Work History
   RxList<TextEditingController> companyNameControllerLists = <TextEditingController>[].obs;
   RxList<TextEditingController> yourPostControllerLists = <TextEditingController>[].obs;
   RxList<TextEditingController> joiningDateControllerLists = <TextEditingController>[].obs;
   RxList<TextEditingController> lastDateControllerLists = <TextEditingController>[].obs;
-
   addWorkHistoryFiled(){
     companyNameControllerLists.add(TextEditingController());
     yourPostControllerLists.add(TextEditingController());
@@ -69,7 +67,6 @@ class HomeController extends GetxController {
   RxList<TextEditingController> projectNameControllerLists = <TextEditingController>[].obs;
   RxList<TextEditingController> liveURLControllerLists = <TextEditingController>[].obs;
   RxList<TextEditingController> projectDesControllerLists = <TextEditingController>[].obs;
-
   addProjectsFiled(){
     projectNameControllerLists.add(TextEditingController());
     liveURLControllerLists.add(TextEditingController());
@@ -82,20 +79,19 @@ class HomeController extends GetxController {
     projectDesControllerLists.removeAt(i);
     update();
   }
-
-  Future<void> pickDate(BuildContext context) async {
+  Future<void> pickDate(BuildContext context, TextEditingController controller) async {
     final DateTime? pickedDate = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime(1900),
       lastDate: DateTime(2100),
     );
-    if (pickedDate != null && pickedDate != _selectedDate) {
-      _selectedDate = pickedDate;
-      dateOfBirthController.text =_selectedDate.toString().split(' ')[0];
+    if (pickedDate != null) {
+      controller.text = pickedDate.toString().split(' ')[0];
     }
-    update();
   }
+
+
   void clearAllControllers() {
     firstNameController.clear();
     lastNameController.clear();
@@ -122,5 +118,4 @@ class HomeController extends GetxController {
     selectedGender = null;
     update();
   }
-
 }
