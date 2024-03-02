@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
 import '../controller/home_controller.dart';
 import '../custom_widgets/custom_TextFromField.dart';
@@ -22,8 +23,8 @@ class HomeScreen extends GetView<HomeController> {
                 onTap: (){
                 },
                 child: Text("Clear",style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w600
+                    fontSize: 15,
+                    fontWeight: FontWeight.w600
                 ),),
               ),
             )
@@ -129,7 +130,6 @@ class HomeScreen extends GetView<HomeController> {
                       label: 'DOB',
                       readOnly: true,
                       onTap: () {
-
                       },
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -256,95 +256,114 @@ class HomeScreen extends GetView<HomeController> {
                   ),
                   IconButton(
                     padding: EdgeInsets.zero,
-                    icon: const Icon(Icons.add), onPressed: () {  },
+                    onPressed: controller.addFiled,
+                    icon: const Icon(Icons.add),
                   )
                 ],
               ),
               Obx(() => ListView.builder(
-                    shrinkWrap: true,
-                    padding: EdgeInsets.zero,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: controller.schoolNameControllerLists.length,
-                    itemBuilder: (context, index) {
-                      return Container(
-                        margin: const EdgeInsets.only(bottom: 10),
-                        padding: const EdgeInsets.all(10),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Align(
-                              alignment: Alignment.centerRight,
-                              child: IconButton(
-                                // onPressed: controller.setResumeDataModel,
-                                onPressed: () {
-                                },
-                                icon: const Icon(Icons.remove_circle),
-                              ),
-                            ),
-                            CustomInputField(
-                              fieldController:
-                                  controller.schoolNameControllerLists[index],
-                              fieldInputType: TextInputType.name,
-                              label: "School Name",
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter School Name';
-                                }
-                                return null;
-                              },
-                            ),
-                            const SizedBox(height: 5),
-                            CustomInputField(
-                              label: "Course Name",
-                              fieldController:
-                                  controller.courseNameControllerLists[index],
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter Course Name';
-                                }
-                                return null;
-                              },
-                            ),
-                            const SizedBox(height: 5),
-                            Row(
-                              children: [
-                                Flexible(
-                                  child: CustomInputField(
-                                    label: "Passing Year",
-                                    fieldInputType: TextInputType.number,
-                                    fieldController: controller
-                                        .passingYearControllerLists[index],
-                                    validator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return 'Please enter Passing Year';
-                                      }
-                                      return null;
-                                    },
-                                  ),
-                                ),
-                                const SizedBox(width: 10),
-                                Flexible(
-                                  child: CustomInputField(
-                                    label: "Percentage",
-                                    fieldInputType: TextInputType.number,
-                                    fieldController: controller
-                                        .PercentageControllerLists[index],
-                                    validator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return 'Please enter Percentage';
-                                      }
-                                      return null;
-                                    },
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
+                shrinkWrap: true,
+                padding: EdgeInsets.zero,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: controller.schoolNameControllerLists.length,
+                itemBuilder: (context, index) {
+                  return Slidable(
+                    key: ValueKey(index),
+                    endActionPane: ActionPane(
+                      motion: const ScrollMotion(),
+                      children: [
+                        SlidableAction(
+                          onPressed: (context) {
+                            controller.removeFiled(index);
+                          },
+                          backgroundColor: const Color(0xFFFE4A49),
+                          foregroundColor: Colors.white,
+                          icon: Icons.delete,
+                          label: 'Delete',
                         ),
-                      );
-                    },
-                  )),
+                      ],
+                    ),
+                    child: Container(
+                      margin: const EdgeInsets.only(bottom: 10),
+                      padding: const EdgeInsets.all(10),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Align(
+                            alignment: Alignment.centerRight,
+                            child: IconButton(
+                              // onPressed: controller.setResumeDataModel,
+                              onPressed: () {
+                                controller.removeFiled(index);
+                              },
+                              icon: const Icon(Icons.remove_circle),
+                            ),
+                          ),
+                          CustomInputField(
+                            fieldController:
+                            controller.schoolNameControllerLists[index],
+                            fieldInputType: TextInputType.name,
+                            label: "School Name",
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter School Name';
+                              }
+                              return null;
+                            },
+                          ),
+                          const SizedBox(height: 5),
+                          CustomInputField(
+                            label: "Course Name",
+                            fieldController:
+                            controller.courseNameControllerLists[index],
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter Course Name';
+                              }
+                              return null;
+                            },
+                          ),
+                          const SizedBox(height: 5),
+                          Row(
+                            children: [
+                              Flexible(
+                                child: CustomInputField(
+                                  label: "Passing Year",
+                                  fieldInputType: TextInputType.number,
+                                  fieldController: controller
+                                      .passingYearControllerLists[index],
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Please enter Passing Year';
+                                    }
+                                    return null;
+                                  },
+                                ),
+                              ),
+                              const SizedBox(width: 10),
+                              Flexible(
+                                child: CustomInputField(
+                                  label: "Percentage",
+                                  fieldInputType: TextInputType.number,
+                                  fieldController: controller
+                                      .PercentageControllerLists[index],
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Please enter Percentage';
+                                    }
+                                    return null;
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              )),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -358,103 +377,121 @@ class HomeScreen extends GetView<HomeController> {
                   ),
                   IconButton(
                     padding: EdgeInsets.zero,
-
-                    icon: const Icon(Icons.add), onPressed: () {  },
+                    onPressed: controller.addWorkHistoryFiled,
+                    icon: const Icon(Icons.add),
                   )
                 ],
               ),
               Obx(() => ListView.builder(
-                    shrinkWrap: true,
-                    padding: EdgeInsets.zero,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: controller.companyNameControllerLists.length,
-                    itemBuilder: (context, index) {
-                      return Container(
-                        margin: const EdgeInsets.only(bottom: 10),
-                        padding: const EdgeInsets.all(10),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Align(
-                              alignment: Alignment.centerRight,
-                              child: IconButton(
-                                onPressed: () {
-
-                                },
-                                icon: const Icon(Icons.remove_circle),
-                              ),
-                            ),
-                            Row(
-                              children: [
-                                Flexible(
-                                  child: CustomInputField(
-                                    label: "Company Name",
-                                    fieldController: controller
-                                        .companyNameControllerLists[index],
-                                    validator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return 'Please enter Company Name';
-                                      }
-                                      return null;
-                                    },
-                                  ),
-                                ),
-                                const SizedBox(width: 10),
-                                Flexible(
-                                  child: CustomInputField(
-                                    label: "Your Post",
-                                    fieldController: controller
-                                        .yourPostControllerLists[index],
-                                    validator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return 'Please enter Your Post';
-                                      }
-                                      return null;
-                                    },
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 5),
-                            Row(
-                              children: [
-                                Flexible(
-                                  child: CustomInputField(
-                                    label: "Joining Date",
-                                    fieldController: controller
-                                        .joiningDateControllerLists[index],
-                                    fieldInputType: TextInputType.number,
-                                    validator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return 'Please enter Joining Date';
-                                      }
-                                      return null;
-                                    },
-                                  ),
-                                ),
-                                const SizedBox(width: 10),
-                                Flexible(
-                                  child: CustomInputField(
-                                    label: "Last Date",
-                                    fieldController: controller
-                                        .lastDateControllerLists[index],
-                                    fieldInputType: TextInputType.number,
-                                    validator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return 'Please enter Last Date';
-                                      }
-                                      return null;
-                                    },
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
+                shrinkWrap: true,
+                padding: EdgeInsets.zero,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: controller.companyNameControllerLists.length,
+                itemBuilder: (context, index) {
+                  return Slidable(
+                    key: ValueKey(index),
+                    endActionPane: ActionPane(
+                      motion: const ScrollMotion(),
+                      children: [
+                        SlidableAction(
+                          onPressed: (context) {
+                            controller.removeWorkHistoryFiled(index);
+                          },
+                          backgroundColor: const Color(0xFFFE4A49),
+                          foregroundColor: Colors.white,
+                          icon: Icons.delete,
+                          label: 'Delete',
                         ),
-                      );
-                    },
-                  )),
+                      ],
+                    ),
+                    child: Container(
+                      margin: const EdgeInsets.only(bottom: 10),
+                      padding: const EdgeInsets.all(10),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Align(
+                            alignment: Alignment.centerRight,
+                            child: IconButton(
+                              // onPressed: controller.setResumeDataModel,
+                              onPressed: () {
+                                controller.removeWorkHistoryFiled(index);
+                              },
+                              icon: const Icon(Icons.remove_circle),
+                            ),
+                          ),
+                          Row(
+                            children: [
+                              Flexible(
+                                child: CustomInputField(
+                                  label: "Company Name",
+                                  fieldController: controller
+                                      .companyNameControllerLists[index],
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Please enter Company Name';
+                                    }
+                                    return null;
+                                  },
+                                ),
+                              ),
+                              const SizedBox(width: 10),
+                              Flexible(
+                                child: CustomInputField(
+                                  label: "Your Post",
+                                  fieldController: controller
+                                      .yourPostControllerLists[index],
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Please enter Your Post';
+                                    }
+                                    return null;
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 5),
+                          Row(
+                            children: [
+                              Flexible(
+                                child: CustomInputField(
+                                  label: "Joining Date",
+                                  fieldController: controller
+                                      .joiningDateControllerLists[index],
+                                  fieldInputType: TextInputType.number,
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Please enter Joining Date';
+                                    }
+                                    return null;
+                                  },
+                                ),
+                              ),
+                              const SizedBox(width: 10),
+                              Flexible(
+                                child: CustomInputField(
+                                  label: "Last Date",
+                                  fieldController: controller
+                                      .lastDateControllerLists[index],
+                                  fieldInputType: TextInputType.number,
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Please enter Last Date';
+                                    }
+                                    return null;
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              )),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -468,81 +505,100 @@ class HomeScreen extends GetView<HomeController> {
                   ),
                   IconButton(
                     padding: EdgeInsets.zero,
-                    icon: const Icon(Icons.add), onPressed: () {  },
+                    onPressed: controller.addProjectsFiled,
+                    icon: const Icon(Icons.add),
                   )
                 ],
               ),
               Obx(() => ListView.builder(
-                    shrinkWrap: true,
-                    padding: EdgeInsets.zero,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: controller.projectNameControllerLists.length,
-                    itemBuilder: (context, index) {
-                      return Container(
-                        margin: const EdgeInsets.only(bottom: 10),
-                        padding: const EdgeInsets.all(10),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Align(
-                              alignment: Alignment.centerRight,
-                              child: IconButton(
-                                // onPressed: controller.setResumeDataModel,
-                                onPressed: () {
-                                },
-                                icon: const Icon(Icons.remove_circle),
-                              ),
-                            ),
-                            Row(
-                              children: [
-                                Flexible(
-                                  child: CustomInputField(
-                                    label: "Project Name",
-                                    fieldController: controller
-                                        .projectNameControllerLists[index],
-                                    validator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return 'Please enter Project Name';
-                                      }
-                                      return null;
-                                    },
-                                  ),
-                                ),
-                                const SizedBox(width: 10),
-                                Flexible(
-                                  child: CustomInputField(
-                                    label: "Live URL",
-                                    fieldController: controller
-                                        .liveURLControllerLists[index],
-                                    validator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return 'Please enter Live URL';
-                                      }
-                                      return null;
-                                    },
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 5),
-                            CustomInputField(
-                              label: "Project Description",
-                              maxLines: 3,
-                              fieldController:
-                                  controller.projectDesControllerLists[index],
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter Project Description';
-                                }
-                                return null;
-                              },
-                            ),
-                          ],
+                shrinkWrap: true,
+                padding: EdgeInsets.zero,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: controller.projectNameControllerLists.length,
+                itemBuilder: (context, index) {
+                  return Slidable(
+                    key: ValueKey(index),
+                    endActionPane: ActionPane(
+                      motion: const ScrollMotion(),
+                      children: [
+                        SlidableAction(
+                          onPressed: (context) {
+                            controller.removeProjectsFiled(index);
+                          },
+                          backgroundColor: const Color(0xFFFE4A49),
+                          foregroundColor: Colors.white,
+                          icon: Icons.delete,
+                          label: 'Delete',
                         ),
-                      );
-                    },
-                  )),
+                      ],
+                    ),
+                    child: Container(
+                      margin: const EdgeInsets.only(bottom: 10),
+                      padding: const EdgeInsets.all(10),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Align(
+                            alignment: Alignment.centerRight,
+                            child: IconButton(
+                              // onPressed: controller.setResumeDataModel,
+                              onPressed: () {
+                                controller.removeProjectsFiled(index);
+                              },
+                              icon: const Icon(Icons.remove_circle),
+                            ),
+                          ),
+                          Row(
+                            children: [
+                              Flexible(
+                                child: CustomInputField(
+                                  label: "Project Name",
+                                  fieldController: controller
+                                      .projectNameControllerLists[index],
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Please enter Project Name';
+                                    }
+                                    return null;
+                                  },
+                                ),
+                              ),
+                              const SizedBox(width: 10),
+                              Flexible(
+                                child: CustomInputField(
+                                  label: "Live URL",
+                                  fieldController: controller
+                                      .liveURLControllerLists[index],
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Please enter Live URL';
+                                    }
+                                    return null;
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 5),
+                          CustomInputField(
+                            label: "Project Description",
+                            maxLines: 3,
+                            fieldController:
+                            controller.projectDesControllerLists[index],
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter Project Description';
+                              }
+                              return null;
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              )),
               const SizedBox(
                 height: 50,
               ),
@@ -558,7 +614,7 @@ class HomeScreen extends GetView<HomeController> {
                           vertical: 15), // Button padding
                       shape: RoundedRectangleBorder(
                         borderRadius:
-                            BorderRadius.circular(10), // Button border radius
+                        BorderRadius.circular(10), // Button border radius
                       ),
                       elevation: 3, // Elevation
                     ),

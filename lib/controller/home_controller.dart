@@ -30,14 +30,57 @@ class HomeController extends GetxController {
   RxList<TextEditingController> courseNameControllerLists = <TextEditingController>[].obs;
   RxList<TextEditingController> passingYearControllerLists = <TextEditingController>[].obs;
   RxList<TextEditingController> PercentageControllerLists = <TextEditingController>[].obs;
+  addFiled(){
+    schoolNameControllerLists.add(TextEditingController());
+    courseNameControllerLists.add(TextEditingController());
+    passingYearControllerLists.add(TextEditingController());
+    PercentageControllerLists.add(TextEditingController());
+    update();
+  }
+  removeFiled(i){
+    schoolNameControllerLists.removeAt(i);
+    courseNameControllerLists.removeAt(i);
+    passingYearControllerLists.removeAt(i);
+    PercentageControllerLists.removeAt(i);
+    update();
+  }
+
   ///Work History
   RxList<TextEditingController> companyNameControllerLists = <TextEditingController>[].obs;
   RxList<TextEditingController> yourPostControllerLists = <TextEditingController>[].obs;
   RxList<TextEditingController> joiningDateControllerLists = <TextEditingController>[].obs;
   RxList<TextEditingController> lastDateControllerLists = <TextEditingController>[].obs;
+
+  addWorkHistoryFiled(){
+    companyNameControllerLists.add(TextEditingController());
+    yourPostControllerLists.add(TextEditingController());
+    joiningDateControllerLists.add(TextEditingController());
+    lastDateControllerLists.add(TextEditingController());
+    update();
+  }
+  removeWorkHistoryFiled(i){
+    companyNameControllerLists.removeAt(i);
+    yourPostControllerLists.removeAt(i);
+    joiningDateControllerLists.removeAt(i);
+    lastDateControllerLists.removeAt(i);
+    update();
+  }
   ///Projects
   RxList<TextEditingController> projectNameControllerLists = <TextEditingController>[].obs;
   RxList<TextEditingController> liveURLControllerLists = <TextEditingController>[].obs;
   RxList<TextEditingController> projectDesControllerLists = <TextEditingController>[].obs;
+
+  addProjectsFiled(){
+    projectNameControllerLists.add(TextEditingController());
+    liveURLControllerLists.add(TextEditingController());
+    projectDesControllerLists.add(TextEditingController());
+    update();
+  }
+  removeProjectsFiled(i){
+    projectNameControllerLists.removeAt(i);
+    liveURLControllerLists.removeAt(i);
+    projectDesControllerLists.removeAt(i);
+    update();
+  }
 
 }
